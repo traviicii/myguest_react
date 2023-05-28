@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { GlobalContext } from '../Context/GlobalContext'
 
@@ -16,7 +16,6 @@ const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function Formulas() {
 
-
     const { client_id } = useParams()
     const { currentClient, setCurrentClient } = useContext(GlobalContext)
 
@@ -31,24 +30,9 @@ export default function Formulas() {
                 </div>
             </div>
 
-            <label htmlFor='add_formula' className='btn btn-circle base-100 mt-5'>
+            <Link to={`/client/${client_id}/newformula`} className='btn btn-circle base-100 mt-5'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="48" viewBox="0 -960 960 960" width="48"><path d="M450-200v-250H200v-60h250v-250h60v250h250v60H510v250h-60Z" /></svg>
-            </label>
-
-            {/* Put this part before </body> tag */}
-            <input type="checkbox" id="add_formula" className="modal-toggle" />
-            <label htmlFor="add_formula" className="modal modal-bottom sm:modal-middle">
-                <label className="modal-box">
-                    <div className='flex justify-between mb-4'>
-                        <h2 className='text-2xl'>Add New Formula</h2>
-                    </div>
-                    <input type="file" className="file-input file-input-bordered w-full max-w-xs" />
-                    
-                    <div className="flex justify-center">
-                        <label className="btn">Save</label>
-                    </div>
-                </label>
-            </label>
+            </Link>
 
 
             <div className="card w-96 bg-base-200 mt-10 shadow-xl">
@@ -66,10 +50,12 @@ export default function Formulas() {
                     </div>
                 </figure>
                 <div className="card-body">
-                    <h2 className="card-title">
-                        2023-10-05
-
-                    </h2>
+                    <div className='flex justify-between'>
+                        <div className="card-title">
+                            2023-10-05
+                        </div>
+                        <div className='card-title'>$90</div>
+                    </div>
                     <p>If a dog chews shoes whose shoes does he choose?</p>
                     <div className="card-actions justify-end">
                         <div className="badge badge-outline">Fashion</div>
