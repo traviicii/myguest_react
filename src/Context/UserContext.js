@@ -20,7 +20,7 @@ const UserContextProvider = ({ children }) => {
     const logMeOut = () => {
         setUser({})
         localStorage.removeItem('myGuest_user')
-        // I forgot how I redirected to home page... look out for where that's happening and make a note lol
+        // I forgot how I redirected to home page on logout... look out for where that's happening and make a note lol
       };
 
     const myValues = {

@@ -21,6 +21,7 @@ export default function Clients() {
     useEffect(() => { setChecked(null) }, [clients, checked])
     useEffect(() => { getClients() }, [])
     useEffect(() => { setCurrentClient({}) }, [])
+    useEffect(() => { getClients() }, [sortby])
 
     // this handle change is tracks value of notes in add client modal
     const handleChange = (e) => {
@@ -89,10 +90,14 @@ export default function Clients() {
         const token = user.apitoken
 
         const res = await fetch(`${BACK_END_URL}/api/userclients`, {
-            method: "GET",
+            method: "POST",
             headers: {
+                "Content-Type": 'application/json',
                 Authorization: `Bearer ${token}`
             },
+            body: JSON.stringify({
+                sortby: sortby
+            })
         })
         const data = await res.json()
         console.log(data)
@@ -109,10 +114,11 @@ export default function Clients() {
 
             <div className='flex justify-center sm:align-end'>
                 {/* The button to open modal */}
-                <label htmlFor="my-modal-4" className="btn rounded-b rounded-t-none mb-5">Add Client</label>
+                <label htmlFor="my-modal-4" className="btn no-animation rounded-b rounded-t-none mb-5">Add Client</label>
             </div>
 
             {/* Put this part before </body> tag */}
+            {/* Checked state variable closes the modal once the form is submitted */}
             <input type="checkbox" checked={checked} id="my-modal-4" className="modal-toggle" />
             <label htmlFor="my-modal-4" className="modal modal-bottom sm:modal-middle cursor-pointer">
                 <label className="modal-box relative" htmlFor="">
@@ -129,28 +135,28 @@ export default function Clients() {
                                 </label>
                             </div>
 
-                            <div className="form-input mb-3">                               
+                            <div className="form-input mb-3">
                                 <label className="input-group input-group-vertical">
                                     <span>Last Name</span>
                                     <input type="text" required="required" placeholder="Last Name" name="last_name" className="form-input input input-bordered" />
                                 </label>
                             </div>
 
-                            <div className="form-input mb-3">                                
+                            <div className="form-input mb-3">
                                 <label className="input-group input-group-vertical">
                                     <span>Email</span>
                                     <input type="text" placeholder="info@site.com" name="email" className="form-input input input-bordered" />
                                 </label>
                             </div>
 
-                            <div className="form-input mb-3">                               
+                            <div className="form-input mb-3">
                                 <label className="input-group input-group-vertical">
                                     <span>Phone</span>
                                     <input type="text" placeholder="112-358-1321" name="phone" className="form-input input input-bordered" />
                                 </label>
                             </div>
 
-                            <div className="form-input">                              
+                            <div className="form-input">
                                 <label className="input-group input-group-vertical">
                                     <span>Birthday</span>
                                     <input type="date" placeholder="4443331122" name="birthday" className="form-input input input-bordered" />
@@ -173,7 +179,7 @@ export default function Clients() {
                                 </div>
                                 <div className="form-control">
                                     <label className="label cursor-pointer">
-                                        <span className="label-text pr-1">Both</span>
+                                        <span className="label-text pr-1">Cut & Color</span>
                                         <input type="radio" name="type" value="cut & color" className="form-radio radio checked:accent-content" checked />
                                     </label>
                                 </div>
@@ -198,16 +204,32 @@ export default function Clients() {
 
             {/* Start of the client table */}
             <div className="overflow-x-auto w-full">
-                <div className='flex justify-end'>
-                    <form className="form-control ">
-                        <div className="input-group">
-                            <input type="text" placeholder="Search…" className="input input-bordered input-sm w-36" />
-                            <button className="btn btn-square btn-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                            </button>
+
+                <form className="form-control ">
+                    <div className="flex justify-between mb-2 ml-2 mr-2">
+                        <div>
+                            <div className="form-control w-full max-w-xs">
+                                
+                                    <select value={sortby} onChange={(e) => { setSortby(e.target.value) }} className="select select-sm select-bordered">
+                                        <option disabled>Sort By</option>
+                                        <option value="first_name">First Name</option>
+                                        <option value="last_name">Last Name</option>
+                                    </select>
+                                
+                            </div>
                         </div>
-                    </form>
-                </div>
+                        <div>
+                            <div className=' input-group'>
+                                <input type="text" placeholder="Search…" className="input input-bordered input-sm w-36" />
+                                <button className="btn btn-square btn-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
 
                 <table className={`table table-compact  table-zebra w-full`}>
                     {/* head */}

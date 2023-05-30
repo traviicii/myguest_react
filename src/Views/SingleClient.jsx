@@ -174,7 +174,7 @@ export default function SingleClient() {
                                 <p className='mb-2 underline'>Client Type </p>
                                 <div className='flex'>
                                     <button onClick={e => handleChange(e, setType)} value="cut" className={`badge badge-lg ${type === 'cut' ? '' : 'badge-outline'}`}>Cut</button>
-                                    <button onClick={e => handleChange(e, setType)} value="color" className={`badge badge-lg ${type === 'color' ? '' : 'badge-outline'}`}>Color</button>
+                                    <button onClick={e => handleChange(e, setType)} value="color" className={`badge badge-lg ml-3 mr-3 ${type === 'color' ? '' : 'badge-outline'}`}>Color</button>
                                     <button onClick={e => handleChange(e, setType)} value="cut & color" className={`badge badge-lg ${type === 'cut & color' ? '' : 'badge-outline'}`}>Both</button>
                                 </div>
                             </div>

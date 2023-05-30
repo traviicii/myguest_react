@@ -9,7 +9,7 @@ import { UserContext } from '../Context/UserContext';
 export default function Home() {
 
     //This points directly to the current theme
-    console.log(document.children[0].dataset.theme, "this")
+    // console.log(document.children[0].dataset.theme, "this theme")
 
     const navigate = useNavigate()
     const { user } = useContext(UserContext)

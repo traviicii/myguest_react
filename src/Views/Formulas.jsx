@@ -57,9 +57,9 @@ export default function Formulas() {
                         <div className='card-title'>$90</div>
                     </div>
                     <p>If a dog chews shoes whose shoes does he choose?</p>
-                    <div className="card-actions justify-end">
-                        <div className="badge badge-outline">Fashion</div>
-                        <div className="badge badge-outline">Cut & Color</div>
+                    <div className="card-actions justify-between mt-3">
+                        <button className="btn btn-sm">Edit</button>
+                        <div className="badge badge-outline">Cut</div>
                     </div>
                 </div>
             </div>

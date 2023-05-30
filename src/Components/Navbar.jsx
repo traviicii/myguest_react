@@ -38,7 +38,7 @@ export default function Navbar() {
                                 </>
                             }
                             <li>
-                                <label className='text-accent dropdown dropdown-end' data-key="" for="myGuest_theme">Theme
+                                <label className='text-accent dropdown dropdown-end' data-key="" htmlFor="myGuest_theme">Theme
                                     <select data-choose-theme className='dropdown dropdown-end' id="myGuest_theme">
                                         <option value="cyberpunk">Cyberpunk</option>
                                         <option value="mytheme">myGuest</option>
@@ -75,7 +75,7 @@ export default function Navbar() {
                         }
                         <li>
 
-                            <label className='text-accent' data-key="" for="myGuest_theme">Theme
+                            <label className='text-accent' data-key="" htmlFor="myGuest_theme">Theme
                                 <select data-choose-theme className='' id="myGuest_theme">
                                     <option value="cyberpunk">Cyberpunk</option>
                                     <option value="mytheme">myGuest</option>
