@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { GlobalContext } from '../Context/GlobalContext'
 
@@ -11,6 +11,8 @@ import stunty_bob from '../images/stunty_bob.png'
 import image_1 from '../images/image_1.jpg'
 import image_2 from '../images/image_2.jpg'
 import image_3 from '../images/image_3.jpg'
+import { UserContext } from '../Context/UserContext'
+import FormulaEntry from '../Components/FormulaEntry'
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
@@ -18,6 +20,35 @@ export default function Formulas() {
 
     const { client_id } = useParams()
     const { currentClient, setCurrentClient } = useContext(GlobalContext)
+    const { user } = useContext(UserContext)
+
+    const [formulas, setFormulas] = useState([])
+
+    useEffect(() => { getFormulas() }, [])
+
+    const getFormulas = async () => {
+            const token = user.apitoken
+    
+            const res = await fetch(`${BACK_END_URL}/api/client/${client_id}/getformulas`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+            })
+            const data = await res.json()
+            console.log(data)
+            if (data.formulas){
+                setFormulas(data.formulas)
+            }
+            else if (data. status == 'not ok'){
+                console.log(data.message)
+            }
+        
+    };
+
+    const showFormulas = () => {
+        return formulas.map((formula, index) => <FormulaEntry key={index} index={index} formula={formula} client_id={client_id}/>)
+    };
 
     return (
         <div className='flex flex-col items-center'>
@@ -34,50 +65,38 @@ export default function Formulas() {
                 <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="48" viewBox="0 -960 960 960" width="48"><path d="M450-200v-250H200v-60h250v-250h60v250h250v60H510v250h-60Z" /></svg>
             </Link>
 
-
-            <div className="card w-96 bg-base-200 mt-10 shadow-xl">
-                <figure>
-                    <div className='carousel rounded-box'>
-                        <div className='carousel-item max-w-fit max-h-fit'>
-                            <img src={image_1} alt="Shoes" />
-                        </div>
-                        <div className='carousel-item max-w-fit max-h-fit'>
-                            <img src={image_2} alt="Shoes" />
-                        </div>
-                        <div className='carousel-item max-w-fit max-h-fit'>
-                            <img src={image_3} alt="Shoes" />
-                        </div>
-                    </div>
-                </figure>
-                <div className="card-body">
-                    <div className='flex justify-between'>
-                        <div className="card-title">
-                            2023-10-05
-                        </div>
-                        <div className='card-title'>$90</div>
-                    </div>
-                    <p>If a dog chews shoes whose shoes does he choose?</p>
-                    <div className="card-actions justify-between mt-3">
-                        <button className="btn btn-sm">Edit</button>
-                        <div className="badge badge-outline">Cut</div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="card w-96 bg-base-200 bg-base-100 mt-10 mb-5 shadow-xl">
-                <figure></figure>
-                <div className="card-body">
-                    <div className="card-title">
-                        Shoes!
-                        <div className="badge badge-secondary">NEW</div>
-                    </div>
-                    <p>If a dog chews shoes whose shoes does he choose?</p>
-                    <div className="card-actions justify-end">
-                        <div className="badge badge-outline">Fashion</div>
-                        <div className="badge badge-outline">Cut & Color</div>
-                    </div>
-                </div>
-            </div>
+            { formulas ? showFormulas() : ''}
+            
         </div>
     )
 }
+
+
+{/* <div className="card w-96 bg-base-200 mt-10 shadow-xl">
+    <figure>
+        <div className='carousel rounded-box'>
+            <div className='carousel-item max-w-fit max-h-fit'>
+                <img src={image_1} alt="Shoes" />
+            </div>
+            <div className='carousel-item max-w-fit max-h-fit'>
+                <img src={image_2} alt="Shoes" />
+            </div>
+            <div className='carousel-item max-w-fit max-h-fit'>
+                <img src={image_3} alt="Shoes" />
+            </div>
+        </div>
+    </figure>
+    <div className="card-body">
+        <div className='flex justify-between'>
+            <div className="card-title">
+                2023-10-05
+            </div>
+            <div className='card-title'>$90</div>
+        </div>
+        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <div className="card-actions justify-between mt-3">
+            <button className="btn btn-sm">Edit</button>
+            <div className="badge badge-outline">Cut</div>
+        </div>
+    </div>
+</div> */}

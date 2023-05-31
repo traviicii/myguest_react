@@ -13,6 +13,7 @@ import SingleClient from './Views/SingleClient';
 import Formulas from './Views/Formulas';
 import ClientColorChart from './Views/ClientColorChart';
 import NewFormulaEntry from './Views/NewFormulaEntry';
+import EditFormula from './Views/EditFormula';
 
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -52,6 +53,7 @@ export default function App() {
           <Route path='/client/:client_id/formulas' element={<Formulas />}/>
           <Route path='/client/:client_id/colorchart' element={<ClientColorChart />}/>
           <Route path='/client/:client_id/newformula' element={<NewFormulaEntry />} />
+          <Route path='/client/:client_id/formula/:formula_id/editformula' element={<EditFormula />}/>
         </Routes>
         
 

@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export const UserContext = createContext();
 
@@ -15,8 +14,6 @@ const UserContextProvider = ({ children }) => {
 
     const [user, setUser] = useState(getUserFromLS);
 
-    const navigate = useNavigate()
-
     const logMeOut = () => {
         setUser({})
         localStorage.removeItem('myGuest_user')
@@ -27,7 +24,6 @@ const UserContextProvider = ({ children }) => {
         user, 
         setUser,
         logMeOut,
-        navigate
     };
     
     return (
