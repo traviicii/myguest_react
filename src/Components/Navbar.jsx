@@ -41,11 +41,11 @@ export default function Navbar() {
                                 <label className='text-accent dropdown dropdown-end' data-key="" htmlFor="myGuest_theme">Theme
                                     <select data-choose-theme className='dropdown dropdown-end' id="myGuest_theme">
                                         <option value="cyberpunk">Cyberpunk</option>
-                                        <option value="mytheme">myGuest</option>
                                         <option value="lofi">LoFi</option>
+                                        <option value="black">Black</option>
+                                        <option value="mytheme">myGuest</option>
                                         <option value="halloween">Halloween</option>
                                         <option value="synthwave">Synthwave</option>
-                                        <option value="black">Black</option>
                                     </select>
                                 </label>
                             </li>
@@ -78,11 +78,11 @@ export default function Navbar() {
                             <label className='text-accent' data-key="" htmlFor="myGuest_theme">Theme
                                 <select data-choose-theme className='' id="myGuest_theme">
                                     <option value="cyberpunk">Cyberpunk</option>
-                                    <option value="mytheme">myGuest</option>
                                     <option value="lofi">LoFi</option>
+                                    <option value="black">Black</option>
+                                    <option value="mytheme">myGuest</option>
                                     <option value="halloween">Halloween</option>
                                     <option value="synthwave">Synthwave</option>
-                                    <option value="black">Black</option>
                                 </select>
                             </label>
                         </li>

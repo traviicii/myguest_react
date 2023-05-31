@@ -81,6 +81,7 @@ export default function EditFormula() {
         // setLoading(false)
     }
 
+    // Gets the formula and any images associated with it from SQL
     const getFormula = async () => {
         const token = user.apitoken
 
@@ -109,7 +110,7 @@ export default function EditFormula() {
     };
 
     const showImages = () => {
-        return images.map((image, index) => <EditImages key={index} index={index} image={image} handleDeleteImage={handleDeleteImage} />)
+        return images?.map((image, index) => <EditImages key={index} index={index} image={image} handleDeleteImage={handleDeleteImage} />)
     };
 
     const handleDeleteImage = (imageID) => {
@@ -163,30 +164,38 @@ export default function EditFormula() {
                         </div>
 
 
+                        { !images || images.length < 1 ? 
                         <form onSubmit={(e) => uploadImage1(e)}>
                             <div className='flex'>
                                 <input type="file" required="required" name='image1' onChange={(e) => { setImage1(e.target.files[0]) }} className="file-input file-input-bordered file-input-sm w-64 max-w-xs mb-3" />
                                 {progress < 99 && progress > 0 ? <button className="btn btn-sm btn-square ml-3 loading"></button> : image1_url ? <span className='btn btn-square btn-sm ml-3'><svg xmlns="http://www.w3.org/2000/svg" className='pb-5 fill-white' height="48" viewBox="0 -960 960 960" width="48"><path d="M378-246 154-470l43-43 181 181 384-384 43 43-427 427Z" /></svg></span> : <button type='submit' className="btn btn-sm ml-3">Upload</button>}
                             </div>
-                        </form>
+                        </form> 
+                        : ''}
                         {progress ? <progress className="progress w-80 mb-3" value={progress} max="100"></progress> : ''}
 
 
+                        { !images || images.length < 2  ? 
                         <form onSubmit={(e) => uploadImage2(e)}>
                             <div className='flex'>
                                 <input type="file" required="required" name='image2' onChange={(e) => { setImage2(e.target.files[0]) }} className="file-input file-input-bordered file-input-sm w-64 max-w-xs mb-3" />
                                 {progress2 < 99 && progress2 > 0 ? <button className="btn btn-sm btn-square ml-3 loading"></button> : image2_url ? <span className='btn btn-square btn-sm ml-3'><svg xmlns="http://www.w3.org/2000/svg" className='pb-5 fill-white' height="48" viewBox="0 -960 960 960" width="48"><path d="M378-246 154-470l43-43 181 181 384-384 43 43-427 427Z" /></svg></span> : <button type='submit' className="btn btn-sm ml-3">Upload</button>}
                             </div>
-                        </form>
+                        </form> 
+                        : ''}
                         {progress2 ? <progress className="progress w-80 mb-3" value={progress2} max="100"></progress> : ''}
 
+
+                        { !images || images.length  < 3 ? 
                         <form onSubmit={(e) => uploadImage3(e)}>
                             <div className='flex'>
                                 <input type="file" required="required" name='image3' onChange={(e) => { setImage3(e.target.files[0]) }} className="file-input file-input-bordered file-input-sm w-64 max-w-xs mb-3" />
                                 {progress3 < 99 && progress3 > 0 ? <button className="btn btn-sm btn-square ml-3 loading"></button> : image3_url ? <span className='btn btn-square btn-sm ml-3'><svg xmlns="http://www.w3.org/2000/svg" className='pb-5 fill-white' height="48" viewBox="0 -960 960 960" width="48"><path d="M378-246 154-470l43-43 181 181 384-384 43 43-427 427Z" /></svg></span> : <button type='submit' className="btn btn-sm ml-3">Upload</button>}
                             </div>
-                        </form>
+                        </form> 
+                        : ''}
                         {progress3 ? <progress className="progress w-80 mb-3" value={progress3} max="100"></progress> : ''}
+
 
                         <label className="input-group input-group-vertical max-w-fit">
                             <span>Date</span>
