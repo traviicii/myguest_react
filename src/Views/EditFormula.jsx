@@ -39,6 +39,7 @@ export default function EditFormula() {
     };
 
     useEffect(() => { getFormula() }, [])
+    useEffect(()=>{showImages()},[images])
 
     const uploadImage1 = (e) => {
         e.preventDefault()
@@ -108,7 +109,14 @@ export default function EditFormula() {
     };
 
     const showImages = () => {
-        return images.map((image, index) => <EditImages key={index} index={index} image={image}/>)
+        return images.map((image, index) => <EditImages key={index} index={index} image={image} handleDeleteImage={handleDeleteImage} />)
+    };
+
+    const handleDeleteImage = (imageID) => {
+        const updatedImages = images.filter((image) => image.id !== imageID);
+        setImages(updatedImages);
+
+        setImageTrashCan((current) => [...current, imageID])
     };
 
     return (
@@ -131,7 +139,7 @@ export default function EditFormula() {
 
                     <div className="form-control">
                         <div className='flex justify-center mb-5'>
-                            
+
                             {showImages()}
 
                             {/* <div className='flex flex-col items-center w-24 ml-2 mr-2'>
