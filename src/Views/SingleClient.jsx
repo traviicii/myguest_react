@@ -208,7 +208,6 @@ export default function SingleClient() {
                                         <label htmlFor="decision-modal" className="btn">Nope! Nevermind!</label>
                                     </div>
                                 </div>
-
                             </div>
 
                         </div>

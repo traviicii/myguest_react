@@ -4,7 +4,7 @@ import { UserContext } from '../Context/UserContext';
 import { GlobalContext } from '../Context/GlobalContext';
 
 import image_1 from '../images/image_1.jpg'
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import { deleteObject, getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import EditImages from '../Components/EditImages';
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
@@ -30,18 +30,22 @@ export default function EditFormula() {
     const [image3_url, setImage3URL] = useState('')
 
     const [images, setImages] = useState([])
+    // imageNames is only used if user decides to delete entire formula
+    const [imageNames, setImageNames] = useState([])
     const [date, setDate] = useState('')
     const [price, setPrice] = useState('')
     const [type, setType] = useState('')
     const [notes, setNotes] = useState('')
     const [imageTrashCan, setImageTrashCan] = useState([])
+    const [trashNames, setTrashNames] = useState([])
+
 
     const handleChange = (e, func) => {
         func(e.target.value)
     };
 
     useEffect(() => { getFormula() }, [])
-    useEffect(()=>{showImages()},[images])
+    useEffect(() => { showImages() }, [images])
 
     const uploadImage1 = (e) => {
         e.preventDefault()
@@ -102,9 +106,13 @@ export default function EditFormula() {
         setType(formula.type)
         setNotes(formula.notes)
         setImages(images)
-        // if (data.images){
-        //    console.log()
-        // }
+        if (data.images){
+            let names = []
+           for (let i=0; i < data.images.length; i++){
+            names.push(data.images[i].image_name)
+           }
+           setImageNames(names)
+        }
         // else if (data. status == 'not ok'){
         //     console.log(data.message)
         // }
@@ -139,6 +147,13 @@ export default function EditFormula() {
                 let formula_id = data.formula_id
                 if (image1_url || image2_url || image3_url) {
                     await addImages();
+                }
+                // Deletes selected images from Firebase
+                if (trashNames) {
+                    for (let i = 0; i < trashNames.length; i++) {
+                        const imageRef = ref(getStorage(), `client/${client_id}/images/${trashNames[i]}`)
+                        deleteObject(imageRef).then(() => { }).catch((error) => (console.log(`Error deleting image ${trashNames[i]}`)))
+                    }
                 }
                 navigate(`/client/${client_id}/formulas`)
 
@@ -192,11 +207,35 @@ export default function EditFormula() {
         return images?.map((image, index) => <EditImages key={index} index={index} image={image} handleDeleteImage={handleDeleteImage} />)
     };
 
-    const handleDeleteImage = (imageID) => {
+    const handleDeleteImage = (imageID, imageName) => {
         const updatedImages = images.filter((image) => image.id !== imageID);
         setImages(updatedImages);
 
         setImageTrashCan((current) => [...current, imageID])
+        setTrashNames((current) => [...current, imageName])
+    };
+
+    const deleteFormula = async () => {
+        const token = user.apitoken
+
+        const res = await fetch(`${BACK_END_URL}/api/formula/${formula_id}/deleteformula`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        })
+        const data = await res.json()
+        console.log(data)
+        if (data.status == 'ok'){
+            if (imageNames) {
+                for (let i = 0; i < imageNames.length; i++) {
+                    const imageRef = ref(getStorage(), `client/${client_id}/images/${imageNames[i]}`)
+                    deleteObject(imageRef).then(() => { }).catch((error) => (console.log(`Error deleting image ${imageNames[i]}`)))
+                }
+            }
+        }
+        navigate(`/client/${client_id}/formulas`)
+
     };
 
     return (
@@ -213,9 +252,23 @@ export default function EditFormula() {
             <div className="card w-96 mb-11 shadow-xl">
                 <div className="card-body">
 
-                    <div className='flex mb-3'>
+                    <div className='flex mb-3 justify-between items-center'>
                         <h2 className='text-2xl'>Edit Appointment</h2>
+                        <label htmlFor="decision-modal" className='btn btn-xs btn-primary btn-outline'>Delete</label>
                     </div>
+
+                    {/* Put this part before </body> tag */}
+                    <input type="checkbox" id="decision-modal" className="modal-toggle" />
+                            <div className="modal">
+                                <div className="modal-box bg-warning">
+                                    <h3 className="font-bold text-lg">Delete Appointment</h3>
+                                    <p className="py-4">Are you sure you want to delete this appointment from your database? <b>This can't be undone!</b></p>
+                                    <div className="modal-action flex justify-around">
+                                        <label htmlFor="decision-modal" onClick={()=>deleteFormula()} className="btn btn-error">I'm sure!</label>
+                                        <label htmlFor="decision-modal" className="btn">Nope! Nevermind!</label>
+                                    </div>
+                                </div>
+                            </div>
 
                     <div className="form-control">
                         <div className='flex justify-center mb-5'>
@@ -243,36 +296,36 @@ export default function EditFormula() {
                         </div>
 
 
-                        { !images || images.length < 1 ? 
-                        <form onSubmit={(e) => uploadImage1(e)}>
-                            <div className='flex'>
-                                <input type="file" required="required" name='image1' onChange={(e) => { setImage1(e.target.files[0]) }} className="file-input file-input-bordered file-input-sm w-64 max-w-xs mb-3" />
-                                {progress < 99 && progress > 0 ? <button className="btn btn-sm btn-square ml-3 loading"></button> : image1_url ? <span className='btn btn-square btn-sm ml-3'><svg xmlns="http://www.w3.org/2000/svg" className='pb-5 fill-white' height="48" viewBox="0 -960 960 960" width="48"><path d="M378-246 154-470l43-43 181 181 384-384 43 43-427 427Z" /></svg></span> : <button type='submit' className="btn btn-sm ml-3">Upload</button>}
-                            </div>
-                        </form> 
-                        : ''}
+                        {!images || images.length < 1 ?
+                            <form onSubmit={(e) => uploadImage1(e)}>
+                                <div className='flex'>
+                                    <input type="file" required="required" name='image1' onChange={(e) => { setImage1(e.target.files[0]) }} className="file-input file-input-bordered file-input-sm w-64 max-w-xs mb-3" />
+                                    {progress < 99 && progress > 0 ? <button className="btn btn-sm btn-square ml-3 loading"></button> : image1_url ? <span className='btn btn-square btn-sm ml-3'><svg xmlns="http://www.w3.org/2000/svg" className='pb-5 fill-white' height="48" viewBox="0 -960 960 960" width="48"><path d="M378-246 154-470l43-43 181 181 384-384 43 43-427 427Z" /></svg></span> : <button type='submit' className="btn btn-sm ml-3">Upload</button>}
+                                </div>
+                            </form>
+                            : ''}
                         {progress ? <progress className="progress w-80 mb-3" value={progress} max="100"></progress> : ''}
 
 
-                        { !images || images.length < 2  ? 
-                        <form onSubmit={(e) => uploadImage2(e)}>
-                            <div className='flex'>
-                                <input type="file" required="required" name='image2' onChange={(e) => { setImage2(e.target.files[0]) }} className="file-input file-input-bordered file-input-sm w-64 max-w-xs mb-3" />
-                                {progress2 < 99 && progress2 > 0 ? <button className="btn btn-sm btn-square ml-3 loading"></button> : image2_url ? <span className='btn btn-square btn-sm ml-3'><svg xmlns="http://www.w3.org/2000/svg" className='pb-5 fill-white' height="48" viewBox="0 -960 960 960" width="48"><path d="M378-246 154-470l43-43 181 181 384-384 43 43-427 427Z" /></svg></span> : <button type='submit' className="btn btn-sm ml-3">Upload</button>}
-                            </div>
-                        </form> 
-                        : ''}
+                        {!images || images.length < 2 ?
+                            <form onSubmit={(e) => uploadImage2(e)}>
+                                <div className='flex'>
+                                    <input type="file" required="required" name='image2' onChange={(e) => { setImage2(e.target.files[0]) }} className="file-input file-input-bordered file-input-sm w-64 max-w-xs mb-3" />
+                                    {progress2 < 99 && progress2 > 0 ? <button className="btn btn-sm btn-square ml-3 loading"></button> : image2_url ? <span className='btn btn-square btn-sm ml-3'><svg xmlns="http://www.w3.org/2000/svg" className='pb-5 fill-white' height="48" viewBox="0 -960 960 960" width="48"><path d="M378-246 154-470l43-43 181 181 384-384 43 43-427 427Z" /></svg></span> : <button type='submit' className="btn btn-sm ml-3">Upload</button>}
+                                </div>
+                            </form>
+                            : ''}
                         {progress2 ? <progress className="progress w-80 mb-3" value={progress2} max="100"></progress> : ''}
 
 
-                        { !images || images.length  < 3 ? 
-                        <form onSubmit={(e) => uploadImage3(e)}>
-                            <div className='flex'>
-                                <input type="file" required="required" name='image3' onChange={(e) => { setImage3(e.target.files[0]) }} className="file-input file-input-bordered file-input-sm w-64 max-w-xs mb-3" />
-                                {progress3 < 99 && progress3 > 0 ? <button className="btn btn-sm btn-square ml-3 loading"></button> : image3_url ? <span className='btn btn-square btn-sm ml-3'><svg xmlns="http://www.w3.org/2000/svg" className='pb-5 fill-white' height="48" viewBox="0 -960 960 960" width="48"><path d="M378-246 154-470l43-43 181 181 384-384 43 43-427 427Z" /></svg></span> : <button type='submit' className="btn btn-sm ml-3">Upload</button>}
-                            </div>
-                        </form> 
-                        : ''}
+                        {!images || images.length < 3 ?
+                            <form onSubmit={(e) => uploadImage3(e)}>
+                                <div className='flex'>
+                                    <input type="file" required="required" name='image3' onChange={(e) => { setImage3(e.target.files[0]) }} className="file-input file-input-bordered file-input-sm w-64 max-w-xs mb-3" />
+                                    {progress3 < 99 && progress3 > 0 ? <button className="btn btn-sm btn-square ml-3 loading"></button> : image3_url ? <span className='btn btn-square btn-sm ml-3'><svg xmlns="http://www.w3.org/2000/svg" className='pb-5 fill-white' height="48" viewBox="0 -960 960 960" width="48"><path d="M378-246 154-470l43-43 181 181 384-384 43 43-427 427Z" /></svg></span> : <button type='submit' className="btn btn-sm ml-3">Upload</button>}
+                                </div>
+                            </form>
+                            : ''}
                         {progress3 ? <progress className="progress w-80 mb-3" value={progress3} max="100"></progress> : ''}
 
 
@@ -303,7 +356,7 @@ export default function EditFormula() {
 
                     <div className="flex justify-around mt-6">
                         <Link to={`/client/${client_id}/formulas`} className="btn mr-10">Cancel</Link>
-                        {<button onClick={() => {updateFormula()}} className="btn">Save</button>}
+                        {<button onClick={() => { updateFormula() }} className="btn">Save</button>}
                         {/* progress || progress2 || progress3 ? <button className="btn loading">Uploading</button> :  */}
                     </div>
                 </div>

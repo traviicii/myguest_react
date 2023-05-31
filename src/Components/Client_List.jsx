@@ -26,7 +26,7 @@ export default function Client_List( { index, client } ) {
 
             <th>
                 
-                <button className="btn btn-xs btn-primary"><Link to={`/client/${client.id}`}>Details</Link></button>
+                <button className="btn btn-xs btn-error"><Link to={`/client/${client.id}`}>Details</Link></button>
             </th>
         </tr>
     )
