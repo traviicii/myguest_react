@@ -25,6 +25,7 @@ export default function Navbar() {
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             {user.id ?
+                                // Dropdown nav on mobile
                                 <>
                                     <li><Link className='text-accent' to={'/clients'}>Clients</Link></li>
                                     <li><Link className='text-accent' to={'/userprofile'}>Profile <div className="badge badge-secondary">NEW</div></Link></li>
@@ -33,7 +34,7 @@ export default function Navbar() {
                                 </>
                                 :
                                 <>
-                                    <li><Link className='text-accent' to={'/'}>Homee</Link></li>
+                                    <li><Link className='text-accent' to={'/'}>Home</Link></li>
                                     <li><Link className='text-accent' to={'/SignUp'}>Sign Up</Link></li>
                                 </>
                             }
