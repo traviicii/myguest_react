@@ -56,8 +56,8 @@ export default function FormulaEntry({ index, formula, client_id }) {
                 </div>
                 <p>{formula.notes}</p>
                 <div className="card-actions justify-between mt-3">
-                    <Link to={`/client/${client_id}/formula/${formula.id}/editformula`} className="btn btn-primary btn-outline btn-xs">Edit</Link>
                     <div className="badge badge-accent ">{formula.type}</div>
+                    <Link to={`/client/${client_id}/formula/${formula.id}/editformula`} className="btn btn-primary btn-outline btn-xs">Edit</Link>
                 </div>
             </div>
         </div>
