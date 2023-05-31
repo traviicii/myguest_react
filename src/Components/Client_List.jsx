@@ -10,7 +10,7 @@ export default function Client_List( { index, client } ) {
                 <div className="flex items-center space-x-3">        
                     <div>
                         <div className="font-bold">{client.first_name} {client.last_name}</div>
-                        <div className="text-sm opacity-50">{client.phone} {client.id}</div>
+                        <div className="text-sm opacity-50">{client.phone}</div>
                     </div>
                 </div>
             </td>

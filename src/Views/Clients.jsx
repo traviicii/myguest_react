@@ -197,7 +197,7 @@ export default function Clients() {
                                 <div>
                                 <label htmlFor="my-modal-4" className="btn">Cancel</label>
                                 </div>
-                                <button type='submit' className="btn btn-wide form-control">Save</button>
+                                <button type='submit' className="btn form-control">Save</button>
                             </div>
 
                         </div>

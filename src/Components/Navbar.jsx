@@ -14,6 +14,14 @@ export default function Navbar() {
         themeChange(false)
     }, [])
 
+    // Closes dropdown when an item in it is clicked
+    const handleclick = () => {
+        const elem = document.activeElement;
+        if(elem){
+            elem?.blur();
+        }
+    };
+
 
     return (
         <div>
@@ -27,15 +35,15 @@ export default function Navbar() {
                             {user.id ?
                                 // Dropdown nav on mobile
                                 <>
-                                    <li><Link className='text-accent' to={'/clients'}>Clients</Link></li>
-                                    <li><Link className='text-accent' to={'/userprofile'}>Profile <div className="badge badge-secondary">NEW</div></Link></li>
-                                    <li><Link className='text-accent' to={'/settings'}>Settings</Link></li>
-                                    <li><Link className='text-accent' to={'/'} onClick={() => logMeOut()} >Logout</Link></li>
+                                    <li onClick={handleclick}><Link className='text-accent' to={'/clients'}>Clients</Link></li>
+                                    <li onClick={handleclick}><Link className='text-accent' to={'/userprofile'}>Profile <div className="badge badge-secondary">NEW</div></Link></li>
+                                    <li onClick={handleclick}><Link className='text-accent' to={'/settings'}>Settings</Link></li>
+                                    <li onClick={handleclick}><Link className='text-accent' to={'/'} onClick={() => logMeOut()} >Logout</Link></li>
                                 </>
                                 :
                                 <>
-                                    <li><Link className='text-accent' to={'/'}>Home</Link></li>
-                                    <li><Link className='text-accent' to={'/SignUp'}>Sign Up</Link></li>
+                                    <li onClick={handleclick}><Link className='text-accent' to={'/'}>Home</Link></li>
+                                    <li onClick={handleclick}><Link className='text-accent' to={'/SignUp'}>Sign Up</Link></li>
                                 </>
                             }
                             <li>
