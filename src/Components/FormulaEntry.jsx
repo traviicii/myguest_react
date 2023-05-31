@@ -39,7 +39,7 @@ export default function FormulaEntry({ index, formula, client_id }) {
     };
 
     return (
-        <div className="card w-96 bg-base-200 mt-10 shadow-xl">
+        <div className="card w-96 bg-base-200 mt-5 mb-5 shadow-xl">
             <figure>
                 <div className='carousel rounded-box'>
                     {images ? showImages() : ''}

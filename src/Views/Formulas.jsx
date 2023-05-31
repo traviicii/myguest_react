@@ -61,7 +61,7 @@ export default function Formulas() {
                 </div>
             </div>
 
-            <Link to={`/client/${client_id}/newformula`} className='btn btn-circle base-100 mt-5'>
+            <Link to={`/client/${client_id}/newformula`} className='btn btn-circle base-100 mt-5 mb-5'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="white" height="48" viewBox="0 -960 960 960" width="48"><path d="M450-200v-250H200v-60h250v-250h60v250h250v60H510v250h-60Z" /></svg>
             </Link>
 

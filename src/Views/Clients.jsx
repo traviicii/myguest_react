@@ -193,7 +193,10 @@ export default function Clients() {
                             </div>
 
 
-                            <div className='flex justify-center mt-6'>
+                            <div className='flex justify-around mt-6'>
+                                <div>
+                                <label htmlFor="my-modal-4" className="btn">Cancel</label>
+                                </div>
                                 <button type='submit' className="btn btn-wide form-control">Save</button>
                             </div>
 
