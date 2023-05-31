@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { UserContext } from '../Context/UserContext';
 import { GlobalContext } from '../Context/GlobalContext';
 
@@ -10,6 +10,8 @@ import EditImages from '../Components/EditImages';
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function EditFormula() {
+
+    const navigate = useNavigate()
 
     const { client_id, formula_id } = useParams()
     const { user } = useContext(UserContext)
@@ -107,6 +109,83 @@ export default function EditFormula() {
         //     console.log(data.message)
         // }
 
+    };
+
+    const updateFormula = async () => {
+        const token = user.apitoken
+
+        const url = BACK_END_URL + `/api/formula/${formula_id}/updateformula`;
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                date: date,
+                price: price,
+                type: type,
+                notes: notes,
+                imageTrashCan: imageTrashCan
+            })
+        }
+
+        try {
+            const res = await fetch(url, options);
+            const data = await res.json();
+            if (data.status === 'ok') {
+                // Show success msg
+                console.log(data)
+                let formula_id = data.formula_id
+                if (image1_url || image2_url || image3_url) {
+                    await addImages();
+                }
+                navigate(`/client/${client_id}/formulas`)
+
+            } else {
+                return console.log(data.message)
+            }
+        }
+        catch {
+            console.log("Unable to update formula.")
+        }
+    };
+
+    const addImages = async () => {
+        const token = user.apitoken
+
+        const url = BACK_END_URL + `/api/client/${client_id}/addimages`;
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-Type": 'application/json',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                date: date,
+                image1_url: image1_url,
+                image1_name: image1.name,
+                image2_url: image2_url,
+                image2_name: image2.name,
+                image3_url: image3_url,
+                image3_name: image3.name
+            })
+        }
+
+        try {
+            const res = await fetch(url, options);
+            const data = await res.json();
+            if (data.status === 'ok') {
+                // Show success msg
+                console.log(data)
+
+            } else {
+                return console.log(data.message)
+            }
+        }
+        catch {
+            console.log("Unable to add images.")
+        }
     };
 
     const showImages = () => {
@@ -224,7 +303,7 @@ export default function EditFormula() {
 
                     <div className="flex justify-around mt-6">
                         <Link to={`/client/${client_id}/formulas`} className="btn mr-10">Cancel</Link>
-                        {<button className="btn">Save</button>}
+                        {<button onClick={() => {updateFormula()}} className="btn">Save</button>}
                         {/* progress || progress2 || progress3 ? <button className="btn loading">Uploading</button> :  */}
                     </div>
                 </div>

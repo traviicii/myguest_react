@@ -13,8 +13,6 @@ export default function FormulaEntry({ index, formula, client_id }) {
     useEffect(() => {getImages()}, [])
 
     const getImages = async () => {
-        console.log(formula.id)
-        
         const token = user.apitoken
 
         const res = await fetch(`${BACK_END_URL}/api/formula/${formula.id}/getimages`, {

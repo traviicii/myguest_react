@@ -20,7 +20,7 @@ export default function Clients() {
 
     useEffect(() => { setChecked(null) }, [clients, checked])
     useEffect(() => { getClients() }, [])
-    useEffect(() => { setCurrentClient({}) }, [])
+    // useEffect(() => { setCurrentClient({}) }, [])
     useEffect(() => { getClients() }, [sortby])
 
     // this handle change is tracks value of notes in add client modal
