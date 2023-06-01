@@ -36,7 +36,7 @@ export default function Navbar() {
                                 // Dropdown nav on mobile
                                 <>
                                     <li onClick={handleclick}><Link className='text-accent' to={'/clients'}>Clients</Link></li>
-                                    <li onClick={handleclick}><Link className='text-accent' to={'/userprofile'}>Profile <div className="badge badge-secondary">NEW</div></Link></li>
+                                    <li onClick={handleclick}><Link className='text-accent' to={'/userprofile'}>Profile <div className="badge badge-sm badge-secondary">NEW</div></Link></li>
                                     <li onClick={handleclick}><Link className='text-accent' to={'/settings'}>Settings</Link></li>
                                     <li onClick={handleclick}><Link className='text-accent' to={'/'} onClick={() => logMeOut()} >Logout</Link></li>
                                 </>
@@ -60,7 +60,7 @@ export default function Navbar() {
                             </li>
                         </ul>
                     </div>
-                    <Link className='flex btn btn-ghost' to={user.uid ? '/clients' : '/'}>
+                    <Link className='flex btn btn-ghost' to={user.id ? '/clients' : '/'}>
                         <span className="pr-0 text-base-100 normal-case text-xl">my</span>
                         <span className="pl-0 text-accent normal-case text-xl">Guest</span>
                     </Link>
@@ -71,8 +71,8 @@ export default function Navbar() {
                         {user.id ?
                             <>
                                 <li><Link className='text-accent' to={'/clients'}>Clients</Link></li>
-                                <li><Link className='text-accent' to={'/userprofile'}>Profile <div className="badge badge-secondary">NEW</div></Link></li>
-                                <li><Link className='text-accent' to={'/settings'}>Settings</Link></li>
+                                <li><Link className='text-accent' to={'/userprofile'}>Profile <div className="badge badge-sm badge-secondary">NEW</div></Link></li>
+                                <li><Link className='text-accent' to={'/settings'}>About</Link></li>
                                 <li><Link className='text-accent' to={'/'} onClick={() => logMeOut()} >Logout</Link></li>
                                 <li><p className='text-neutral-content'>Hello, {user.first_name}!</p></li>
                             </>

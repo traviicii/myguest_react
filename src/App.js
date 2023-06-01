@@ -8,7 +8,7 @@ import LogIn from './Views/LogIn';
 import SignUp from './Views/SignUp';
 import Clients from './Views/Clients';
 import UserProfile from './Views/UserProfile';
-import Settings from './Views/Settings';
+import About from './Views/About';
 import SingleClient from './Views/SingleClient';
 import Formulas from './Views/Formulas';
 import ClientColorChart from './Views/ClientColorChart';
@@ -58,7 +58,7 @@ export default function App() {
           <Route path='/signup' element={<SignUp />}/>
           <Route path='/clients' element={<Clients />}/>
           <Route path='/userprofile' element={<UserProfile />}/>
-          <Route path='/settings' element={<Settings />}/>
+          <Route path='/settings' element={<About />}/>
           <Route path='/client/:client_id' element={<SingleClient />}/>
           <Route path='/client/:client_id/formulas' element={<Formulas />}/>
           <Route path='/client/:client_id/colorchart' element={<ClientColorChart />}/>

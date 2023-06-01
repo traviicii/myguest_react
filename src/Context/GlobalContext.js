@@ -5,20 +5,20 @@ export const GlobalContext = createContext();
 
 const GlobalContextProvider = ({ children }) => {
 
-    
+
     const getCurrentClientFromLS = () => {
         const found = localStorage.getItem('myGuest_currentClient');
-        if (found){
+        if (found) {
             return JSON.parse(found)
         }
         return {}
     }
-    
+
     const [clients, setClients] = useState([])
     const [currentClient, setCurrentClient] = useState(getCurrentClientFromLS)
     const [messages, setMessages] = useState([])
 
-    const addMessage = (text, color='success') => {
+    const addMessage = (text, color = 'success') => {
         const newMessage = {
             text,
             color
@@ -27,7 +27,7 @@ const GlobalContextProvider = ({ children }) => {
     };
 
     const removeMessage = (index) => {
-        setTimeout(()=>{
+        setTimeout(() => {
             const copy = [...messages]
             copy.splice(index, 1)
             setMessages(copy)
@@ -35,9 +35,9 @@ const GlobalContextProvider = ({ children }) => {
     }
 
     const showMessages = () => {
-        return messages.map(({ text, color }, index) => <Message key={index} text={text} color={color} index={index} />)
+        return messages.map(({ text, color }, index) => <Message key={index} color={color} text={text} index={index} />)
     }
-    
+
     const myvalues = {
         clients,
         setClients,
@@ -49,10 +49,10 @@ const GlobalContextProvider = ({ children }) => {
         showMessages
     }
 
-  return (
-    <GlobalContext.Provider value={myvalues}>
-        {children}
-    </GlobalContext.Provider>
-  )
+    return (
+        <GlobalContext.Provider value={myvalues}>
+            {children}
+        </GlobalContext.Provider>
+    )
 }
 export default GlobalContextProvider

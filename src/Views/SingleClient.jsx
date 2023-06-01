@@ -195,7 +195,7 @@ export default function SingleClient() {
                                 {/* The button to open modal */}
                                 <label htmlFor="decision-modal" className="btn">Delete</label>
 
-                                <button type='submit' onClick={(e)=>{updateClient(e)}} className="btn form-control">Save</button>
+                                <button type='submit' onClick={(e) => { updateClient(e) }} className="btn form-control">Save</button>
                             </div>
 
 
@@ -206,7 +206,7 @@ export default function SingleClient() {
                                     <h3 className="font-bold text-lg">Remove Client</h3>
                                     <p className="py-4">Are you sure you want to delete this client from your database? <b>This can't be undone!</b></p>
                                     <div className="modal-action flex justify-around">
-                                        <label htmlFor="decision-modal" onClick={()=>deleteClient()} className="btn btn-error">I'm sure!</label>
+                                        <label htmlFor="decision-modal" onClick={() => deleteClient()} className="btn btn-error">I'm sure!</label>
                                         <label htmlFor="decision-modal" className="btn">Nope! Nevermind!</label>
                                     </div>
                                 </div>

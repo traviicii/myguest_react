@@ -58,6 +58,7 @@ export default function LogIn() {
         navigate('/clients')
 
       } else {
+        addMessage(data.message)
         return console.log(data.message)
       }
     }
