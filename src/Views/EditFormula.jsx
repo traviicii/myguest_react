@@ -15,7 +15,7 @@ export default function EditFormula() {
 
     const { client_id, formula_id } = useParams()
     const { user } = useContext(UserContext)
-    const { currentClient } = useContext(GlobalContext)
+    const { currentClient, messages, showMessages, addMessage } = useContext(GlobalContext)
 
     const [image1, setImage1] = useState('')
     const [progress, setProgress] = useState('')
@@ -80,7 +80,7 @@ export default function EditFormula() {
                 // Upload completed successfully, now we can get the download URL
                 await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     setURLfunc(downloadURL)
-                    console.log('File available at', downloadURL);
+                    // console.log('File available at', downloadURL);
                 });
             }
         );
@@ -155,14 +155,18 @@ export default function EditFormula() {
                         deleteObject(imageRef).then(() => { }).catch((error) => (console.log(`Error deleting image ${trashNames[i]}`)))
                     }
                 }
+                addMessage(data.message)
                 navigate(`/client/${client_id}/formulas`)
 
             } else {
-                return console.log(data.message)
+                addMessage(data.message)
+                console.log(data.message)
+                return
             }
         }
         catch {
-            console.log("Unable to update formula.")
+            addMessage("Unable to update formula.")
+            // console.log("Unable to update formula.")
         }
     };
 
@@ -195,11 +199,14 @@ export default function EditFormula() {
                 console.log(data)
 
             } else {
-                return console.log(data.message)
+                addMessage(data.message)
+                // console.log(data.message)
+                return
             }
         }
         catch {
-            console.log("Unable to add images.")
+            addMessage("Unable to add images.", "error")
+            // console.log("Unable to add images.")
         }
     };
 
@@ -233,6 +240,7 @@ export default function EditFormula() {
                     deleteObject(imageRef).then(() => { }).catch((error) => (console.log(`Error deleting image ${imageNames[i]}`)))
                 }
             }
+            addMessage(data.message)
         }
         navigate(`/client/${client_id}/formulas`)
 

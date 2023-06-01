@@ -8,12 +8,15 @@ import stunty_bob from '../images/stunty_bob.png'
 import { UserContext } from '../Context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { GlobalContext } from '../Context/GlobalContext'
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function LogIn() {
 
   const { setUser } = useContext(UserContext)
+  const { addMessage, showMessages } = useContext(GlobalContext)
+
 
   const navigate = useNavigate()
 
@@ -82,7 +85,7 @@ export default function LogIn() {
       const data = await res.json();
       if (data.status === 'ok') {
         // Show success "You have successfully logged in" msg data.message
-        console.log(data)
+        // console.log(data)
         setUser(data.data)
         localStorage.setItem('myGuest_user', JSON.stringify(data.data))
         navigate('/clients')
@@ -90,11 +93,14 @@ export default function LogIn() {
       } else {
         // Display message "Please create an account first!"
         navigate('/signup')
-        return console.log(data.message)
+        // addMessage("Please create an account first!", "warning")
+        // console.log(data.message)
+        return
       }
     }
     catch {
-      console.log("something went wrong logging in.")
+      addMessage("Something went wrong... try again?")
+      // console.log("Something went wrong logging in.")
     }
   };
 
@@ -118,6 +124,7 @@ export default function LogIn() {
 
   return (
     <>
+    { showMessages() }
       <div className='hero min-h-screen' style={{ backgroundImage: `url(${randBackground()})` }}>
         <div className="card w-72 ">
           <span className='flex justify-center'>

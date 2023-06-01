@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Navbar from './Components/Navbar';
 import { Routes, Route } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
@@ -14,6 +14,8 @@ import Formulas from './Views/Formulas';
 import ClientColorChart from './Views/ClientColorChart';
 import NewFormulaEntry from './Views/NewFormulaEntry';
 import EditFormula from './Views/EditFormula';
+import Message from './Components/Message';
+import { GlobalContext } from './Context/GlobalContext';
 
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -39,9 +41,17 @@ getStorage(initializeApp(firebaseConfig))
 // const analytics = getAnalytics(app);
 
 export default function App() {
+
+  const { messages, showMessages } = useContext(GlobalContext)
+
+  // const showMessages = () => {
+  //   return messages.map(({text, color}, index) => <Message key={index} text={text} color={color} index={index}/>)
+  // }
+
   return (
       <div>
         <Navbar />
+        { showMessages() }
         <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='/login' element={<LogIn />}/>

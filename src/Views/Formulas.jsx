@@ -19,7 +19,7 @@ const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 export default function Formulas() {
 
     const { client_id } = useParams()
-    const { currentClient, setCurrentClient } = useContext(GlobalContext)
+    const { currentClient, setCurrentClient, addMessage } = useContext(GlobalContext)
     const { user } = useContext(UserContext)
 
     const [formulas, setFormulas] = useState([])
@@ -41,6 +41,7 @@ export default function Formulas() {
                 setFormulas(data.formulas)
             }
             else if (data. status == 'not ok'){
+                addMessage("Could not load formulas...", "error")
                 console.log(data.message)
             }
         

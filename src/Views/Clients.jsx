@@ -12,15 +12,15 @@ export default function Clients() {
 
     const navigate = useNavigate()
 
-    const { clients, setClients, setCurrentClient } = useContext(GlobalContext)
+    const { clients, setClients, addMessage } = useContext(GlobalContext)
     const { user } = useContext(UserContext)
     const [notes, setNotes] = useState('')
     const [sortby, setSortby] = useState('first_name')
     const [checked, setChecked] = useState(null)
 
+
     useEffect(() => { setChecked(null) }, [clients, checked])
     useEffect(() => { getClients() }, [])
-    // useEffect(() => { setCurrentClient({}) }, [])
     useEffect(() => { getClients() }, [sortby])
 
     // this handle change is tracks value of notes in add client modal
@@ -195,7 +195,7 @@ export default function Clients() {
 
                             <div className='flex justify-around mt-6'>
                                 <div>
-                                <label htmlFor="my-modal-4" className="btn">Cancel</label>
+                                    <label htmlFor="my-modal-4" className="btn">Cancel</label>
                                 </div>
                                 <button type='submit' className="btn form-control">Save</button>
                             </div>
@@ -212,13 +212,16 @@ export default function Clients() {
                     <div className="flex justify-between mb-2 ml-2 mr-2">
                         <div>
                             <div className="form-control w-full max-w-xs">
-                                
-                                    <select value={sortby} onChange={(e) => { setSortby(e.target.value) }} className="select select-sm select-bordered">
-                                        <option disabled>Sort By</option>
-                                        <option value="first_name">First Name</option>
-                                        <option value="last_name">Last Name</option>
-                                    </select>
-                                
+
+                                <select value={sortby} onChange={(e) => { setSortby(e.target.value) }} className="select select-sm select-bordered">
+                                    <option disabled>Sort By</option>
+                                    <option value="first_name">First Name</option>
+                                    <option value="last_name">Last Name</option>
+                                    {/* <option value="type">Type</option> */}
+                                    {/* <option value="color">Color</option>
+                                        <option value="cut & color">Cut & Color</option> */}
+                                </select>
+
                             </div>
                         </div>
                         <div>

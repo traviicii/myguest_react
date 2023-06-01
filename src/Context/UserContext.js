@@ -18,6 +18,7 @@ const UserContextProvider = ({ children }) => {
         setUser({})
         localStorage.removeItem('myGuest_user')
         // I forgot how I redirected to home page on logout... look out for where that's happening and make a note lol
+        // found it! The logout button is just a link to '/' 
       };
 
     const myValues = {

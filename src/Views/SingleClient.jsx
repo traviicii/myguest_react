@@ -18,7 +18,7 @@ export default function SingleClient() {
     const navigate = useNavigate()
 
     const { user } = useContext(UserContext)
-    const { currentClient, setCurrentClient } = useContext(GlobalContext)
+    const { currentClient, setCurrentClient, addMessage } = useContext(GlobalContext)
     const { client_id } = useParams()
     const [checked, setChecked] = useState(null)
 
@@ -74,6 +74,7 @@ export default function SingleClient() {
         })
         const data = await res.json()
         console.log(data)
+        // addMessage(data.message)
         navigate('/clients')
     };
 
@@ -105,7 +106,8 @@ export default function SingleClient() {
             const data = await res.json();
             if (data.status === 'ok') {
                 // Show success msg
-                console.log(data)
+                // console.log(data)
+                addMessage(data.message)
             }
             else {
                 return console.log(data.message)

@@ -7,9 +7,10 @@ const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function ClientColorChart() {
 
+    
     const { client_id } = useParams()
     const { user } = useContext(UserContext)
-    const { currentClient, setCurrentClient } = useContext(GlobalContext)
+    const { currentClient, addMessage } = useContext(GlobalContext)
 
     const [colorchart, setColorChart] = useState({})
 
@@ -97,15 +98,17 @@ export default function ClientColorChart() {
             const data = await res.json();
             if (data.status === 'ok') {
                 // Show success msg
-                console.log(data)
+                // console.log(data)
+                addMessage(data.message)
 
             }
             else {
+                addMessage(data.message)
                 return console.log(data.message)
             }
         }
         catch {
-            console.log("Couldn't update colorchart. Try again?")
+            addMessage("Couldn't update colorchart. Try again?", "error")
         }
     };
 

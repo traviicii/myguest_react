@@ -12,7 +12,7 @@ export default function NewFormulaEntry() {
 
     const { client_id } = useParams()
     const { user } = useContext(UserContext)
-    const { currentClient } = useContext(GlobalContext)
+    const { currentClient, addMessage } = useContext(GlobalContext)
 
     const [image1, setImage1] = useState('')
     const [progress, setProgress] = useState('')
@@ -116,11 +116,12 @@ export default function NewFormulaEntry() {
             const data = await res.json();
             if (data.status === 'ok') {
                 // Show success msg
-                console.log(data)
+                // console.log(data)
                 let formula_id = data.formula_id
                 if (image1_url || image2_url || image3_url) {
                     await addImages();
                 }
+                addMessage(data.message)
                 navigate(`/client/${client_id}/formulas`)
 
             } else {
