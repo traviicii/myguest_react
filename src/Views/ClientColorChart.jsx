@@ -220,7 +220,7 @@ export default function ClientColorChart() {
                     </div>
                 </div>
 
-                <div className='flex flex-col items-center mb-6'>
+                {/* <div className='flex flex-col items-center mb-6'>
                     <p className='mb-2 underline'>Eye Color</p>
                     <div className='flex'>
                         <button className="badge badge-outline">Resistant</button>
@@ -228,7 +228,7 @@ export default function ClientColorChart() {
                         <div className="badge badge-outline">Porous</div>
                         <div className="badge badge-outline whitespace-nowrap">Very Porous</div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className='flex justify-center'>
                     <button className='btn w-36' onClick={(e) => updateColorChart(e)}>Save</button>
