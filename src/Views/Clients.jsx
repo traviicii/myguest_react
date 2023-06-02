@@ -145,7 +145,7 @@ export default function Clients() {
                             <div className="form-input mb-3">
                                 <label className="input-group input-group-vertical">
                                     <span>Email</span>
-                                    <input type="text" placeholder="info@site.com" name="email" className="form-input input input-bordered" />
+                                    <input type="email" placeholder="info@site.com" name="email" className="form-input input input-bordered" />
                                 </label>
                             </div>
 
