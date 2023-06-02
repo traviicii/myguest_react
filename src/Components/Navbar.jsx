@@ -37,7 +37,7 @@ export default function Navbar() {
                                 <>
                                     <li onClick={handleclick}><Link className='text-accent' to={'/clients'}>Clients</Link></li>
                                     <li onClick={handleclick}><Link className='text-accent' to={'/userprofile'}>Profile <div className="badge badge-sm badge-secondary">NEW</div></Link></li>
-                                    <li onClick={handleclick}><Link className='text-accent' to={'/settings'}>Settings</Link></li>
+                                    <li onClick={handleclick}><Link className='text-accent' to={'/settings'}>About</Link></li>
                                     <li onClick={handleclick}><Link className='text-accent' to={'/'} onClick={() => logMeOut()} >Logout</Link></li>
                                 </>
                                 :
