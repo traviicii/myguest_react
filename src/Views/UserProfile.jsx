@@ -9,7 +9,7 @@ const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 export default function UserProfile() {
 
     const { user } = useContext(UserContext)
-    const { addMessage } = useContext(GlobalContext)
+    const { addMessage, logMeOut } = useContext(GlobalContext)
 
     const [firstName, setFirstName] = useState(user.first_name)
     const [lastName, setLastName] = useState(user.last_name)
@@ -73,6 +73,7 @@ export default function UserProfile() {
             console.log(data)
             if (data.status == 'ok') {
                 addMessage(data.message)
+                logMeOut()
                 navigate('/')
             }
             else {

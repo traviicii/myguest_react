@@ -106,7 +106,7 @@ export default function Clients() {
 
 
     const showClients = () => {
-        return clients.map((client, index) => <Client_List key={index} client={client} />)
+        return clients?.map((client, index) => <Client_List key={index} client={client} />)
     };
 
     return (
