@@ -31,7 +31,7 @@ const GlobalContextProvider = ({ children }) => {
             const copy = [...messages]
             copy.splice(index, 1)
             setMessages(copy)
-        }, 3000)
+        }, 4000)
     }
 
     const showMessages = () => {
