@@ -3,13 +3,15 @@ import { UserContext } from '../Context/UserContext'
 import stuntbot from '../images/stuntbot.png'
 import { GlobalContext } from '../Context/GlobalContext'
 import { useNavigate } from 'react-router-dom'
+import { getStorage, ref, deleteObject } from "firebase/storage";
+import { CSVLink } from 'react-csv'
 
 const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function UserProfile() {
 
     const { user } = useContext(UserContext)
-    const { addMessage, logMeOut } = useContext(GlobalContext)
+    const { addMessage, logMeOut, clients } = useContext(GlobalContext)
 
     const [firstName, setFirstName] = useState(user.first_name)
     const [lastName, setLastName] = useState(user.last_name)
@@ -18,6 +20,29 @@ export default function UserProfile() {
     const [password, setPassword] = useState('')
 
     const navigate = useNavigate()
+
+    
+    // for exporting a CSV file using react-csv package
+    const csvLinkEL = React.createRef();
+    const headers = [
+        { label: "First Name", key: 'first_name'},
+        { label: "Last Name", key: 'last_name'},
+        { label: "Email", key: 'email'},
+        { label: "Phone", key: 'phone'},
+        { label: "Birthday", key: "birthday"},
+        { label: "Type", key: "type"},
+        { label: "Notes", key: "notes"}
+    ];
+
+    const csvReport = {
+        data: clients,
+        headers: headers,
+        filename: `myGuest_clients.csv`
+      };
+
+    const downloadReport = () => {
+        csvLinkEL.current.link.click()
+    };
 
     const handleChange = (e, func) => {
         func(e.target.value)
@@ -72,6 +97,15 @@ export default function UserProfile() {
             const data = await res.json()
             console.log(data)
             if (data.status == 'ok') {
+                // // Create reference to the users folder on Firebase
+                // const userImagesRef = ref(getStorage(), `user/${user.id}`);
+                // // Delete the file
+                // deleteObject(userImagesRef).then(() => {
+                // // File deleted successfully
+                // }).catch((error) => {
+                //     // Uh-oh, an error occurred!
+                // });
+
                 addMessage(data.message)
                 logMeOut()
                 navigate('/')
@@ -147,7 +181,8 @@ export default function UserProfile() {
                             <div className='flex justify-center mt-6'>
                                 <div className='indicator'>
                                     <span className="indicator-item badge badge-primary">Coming soon!</span>
-                                    <button type='submit' className="btn form-control">Export Data</button>
+                                    <input type='button' value={"Export Data"} onClick={downloadReport} className="btn form-control"/>
+                                    <CSVLink {...csvReport} ref={csvLinkEL}></CSVLink>
                                 </div>
                             </div>
 

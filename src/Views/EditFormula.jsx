@@ -151,7 +151,7 @@ export default function EditFormula() {
                 // Deletes selected images from Firebase
                 if (trashNames) {
                     for (let i = 0; i < trashNames.length; i++) {
-                        const imageRef = ref(getStorage(), `client/${client_id}/images/${trashNames[i]}`)
+                        const imageRef = ref(getStorage(), `user/${user.id}/client/${client_id}/images/${trashNames[i]}`)
                         deleteObject(imageRef).then(() => { }).catch((error) => (console.log(`Error deleting image ${trashNames[i]}`)))
                     }
                 }
@@ -236,7 +236,7 @@ export default function EditFormula() {
         if (data.status == 'ok'){
             if (imageNames) {
                 for (let i = 0; i < imageNames.length; i++) {
-                    const imageRef = ref(getStorage(), `client/${client_id}/images/${imageNames[i]}`)
+                    const imageRef = ref(getStorage(), `user/${user.id}/client/${client_id}/images/${imageNames[i]}`)
                     deleteObject(imageRef).then(() => { }).catch((error) => (console.log(`Error deleting image ${imageNames[i]}`)))
                 }
             }

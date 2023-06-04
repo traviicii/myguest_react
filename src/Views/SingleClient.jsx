@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { UserContext } from '../Context/UserContext';
 import { GlobalContext } from '../Context/GlobalContext';
+import { getStorage, ref, deleteObject } from "firebase/storage";
 
 import orange_cyberpunk from '../images/orange_cyberpunk.png'
 import haircut_background from '../images/haircut_background.png'
@@ -73,9 +74,20 @@ export default function SingleClient() {
             },
         })
         const data = await res.json()
-        console.log(data)
-        // addMessage(data.message)
-        navigate('/clients')
+        if (data.status == 'ok'){
+            console.log(data)
+            // Create reference to the users folder on Firebase
+            const userImagesRef = ref(getStorage(), `user/${user.id}/client/${client_id}`);
+            // Delete the file
+            deleteObject(userImagesRef).then(() => {
+            // File deleted successfully
+            }).catch((error) => {
+                addMessage("Uh-oh, an error occurred!", 'error')
+            });
+            // addMessage(data.message)
+            navigate('/clients')
+
+        }
     };
 
     const updateClient = async (e) => {

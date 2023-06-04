@@ -65,6 +65,7 @@ export default function Clients() {
             const data = await res.json();
             if (data.status === 'ok') {
                 // Show success msg
+                addMessage(data.message)
                 console.log(data)
                 getClients()
                 setChecked(false)

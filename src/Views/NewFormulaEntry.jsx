@@ -31,8 +31,6 @@ export default function NewFormulaEntry() {
     const [type, setType] = useState('')
     const [notes, setNotes] = useState('')
 
-    const [loading, setLoading] = useState(false)
-
     const handleChange = (e, func) => {
         func(e.target.value)
     };
@@ -40,39 +38,23 @@ export default function NewFormulaEntry() {
     const uploadImage1 = (e) => {
         e.preventDefault()
         // Create a reference line to 'image.jpg'
-        const image1ref = ref(getStorage(), `client/${client_id}/images/${image1.name}`);
+        const image1ref = ref(getStorage(), `user/${user.id}/client/${client_id}/images/${image1.name}`);
         listenToUpload(image1ref, image1, setProgress, setImage1URL)
     };
 
     const uploadImage2 = (e) => {
         e.preventDefault()
-        const image2ref = ref(getStorage(), `client/${client_id}/images/${image2.name}`);
+        const image2ref = ref(getStorage(), `user/${user.id}/client/${client_id}/images/${image2.name}`);
         listenToUpload(image2ref, image2, setProgress2, setImage2URL)
     };
 
     const uploadImage3 = (e) => {
         e.preventDefault()
-        const image3ref = ref(getStorage(), `client/${client_id}/images/${image3.name}`);
+        const image3ref = ref(getStorage(), `user/${user.id}/client/${client_id}/images/${image3.name}`);
         listenToUpload(image3ref, image3, setProgress3, setImage3URL)
     };
 
-    // const uploadImages = () => {
-
-    //     // Create a reference line to 'image.jpg'
-    //     const image1ref = ref(getStorage(), `client/${client_id}/images/${image1.name}`);
-    //     const image2ref = ref(getStorage(), `client/${client_id}/images/${image2.name}`);
-    //     const image3ref = ref(getStorage(), `client/${client_id}/images/${image3.name}`);
-
-    //     // Uploads and listen for state changes, errors, and completion of the upload.
-    //     if (image1) { listenToUpload(image1ref, image1, setProgress, setImage1URL) }
-    //     if (image2) { listenToUpload(image2ref, image2, setProgress2, setImage2URL) }
-    //     if (image3) { listenToUpload(image3ref, image3, setProgress3, setImage3URL) }
-    //     addImages()
-    // };
-
-
     const listenToUpload = async (imgref, img, prog, setURLfunc) => {
-        // setLoading(true)
         // Listen for state changes, errors, and completion of the image upload.
         const uploadTask = uploadBytesResumable(imgref, img);
 
@@ -85,11 +67,10 @@ export default function NewFormulaEntry() {
                 // Upload completed successfully, now we can get the download URL
                 await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     setURLfunc(downloadURL)
-                    console.log('File available at', downloadURL);
+                    // console.log('File available at', downloadURL);
                 });
             }
         );
-        // setLoading(false)
     }
 
 

@@ -21,10 +21,10 @@ export default function About() {
             <div>
               <p className='text-2xl'>Upcoming features</p>
               <ul className='steps steps-vertical'>
-                <li className='step step-primary'>Export your client data (Pandas)</li>
-                <li className='step'>Send mass text alerts to all or selected clients (Twillio)</li>
-                <li className='step'>Appontment scheduling and tracking (Calendly?)</li>
-                <li className='step'>Paginated client page</li>
+                <li className='step step-primary'>Export your client data (Completed!)</li>
+                <li className='step step-primary'>Send mass text alerts to all or selected clients (Twillio)</li>
+                <li className='step'>Appontment scheduling and tracking (Calendly)</li>
+                <li className='step'>Paginated Clients page</li>
                 <li className='step'>Optional donations or subscription of an amount of your choosing (Stripe)</li>
               </ul>
             </div>
