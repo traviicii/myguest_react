@@ -180,7 +180,7 @@ export default function UserProfile() {
 
                             <div className='flex justify-center mt-6'>
                                 <div className='indicator'>
-                                    <span className="indicator-item badge badge-primary">Coming soon!</span>
+                                    <span className="indicator-item badge badge-primary">New!</span>
                                     <input type='button' value={"Export Data"} onClick={downloadReport} className="btn form-control"/>
                                     <CSVLink {...csvReport} ref={csvLinkEL}></CSVLink>
                                 </div>
