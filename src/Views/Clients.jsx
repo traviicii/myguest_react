@@ -153,7 +153,7 @@ export default function Clients() {
                             <div className="form-input mb-3">
                                 <label className="input-group input-group-vertical">
                                     <span>Phone</span>
-                                    <input type="text" placeholder="4441110000" name="phone" className="form-input input input-bordered" />
+                                    <input type="tel" placeholder="4441110000" name="phone" className="form-input input input-bordered" />
                                 </label>
                             </div>
 
