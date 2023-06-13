@@ -34,7 +34,7 @@ export default function ClientColorChart() {
 
     const handleClick = (e, func) => {
         func(e.target.value)
-        console.log(e.target.value)
+        // console.log(e.target.value)
     };
 
     const getColorChart = async () => {
@@ -47,7 +47,7 @@ export default function ClientColorChart() {
             },
         })
         const data = await res.json()
-        console.log(data)
+        // console.log(data)
         const colorchart = data.colorchart
         setPorosity(colorchart.porosity)
         setTexture(colorchart.hair_texture)
@@ -104,7 +104,7 @@ export default function ClientColorChart() {
             }
             else {
                 addMessage(data.message)
-                return console.log(data.message)
+                return
             }
         }
         catch {

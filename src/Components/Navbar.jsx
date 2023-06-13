@@ -105,9 +105,9 @@ export default function Navbar() {
                                 <img src={user.photoURL ? user.photoURL : stuntbot} alt='' />
                             </div>
                         </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                        {/* <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             {"placeholder"}
-                        </ul>
+                        </ul> */}
                     </div>
 
                     :

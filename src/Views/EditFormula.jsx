@@ -143,7 +143,7 @@ export default function EditFormula() {
             const data = await res.json();
             if (data.status === 'ok') {
                 // Show success msg
-                console.log(data)
+                // console.log(data)
                 let formula_id = data.formula_id
                 if (image1_url || image2_url || image3_url) {
                     await addImages();
@@ -160,12 +160,12 @@ export default function EditFormula() {
 
             } else {
                 addMessage(data.message)
-                console.log(data.message)
+                // console.log(data.message)
                 return
             }
         }
         catch {
-            addMessage("Unable to update formula.")
+            addMessage("Unable to update formula.", "error")
             // console.log("Unable to update formula.")
         }
     };
@@ -196,7 +196,7 @@ export default function EditFormula() {
             const data = await res.json();
             if (data.status === 'ok') {
                 // Show success msg
-                console.log(data)
+                // console.log(data)
 
             } else {
                 addMessage(data.message)

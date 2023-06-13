@@ -10,7 +10,7 @@ const BACK_END_URL = process.env.REACT_APP_BACKEND_URL
 
 export default function Clients() {
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const { clients, setClients, addMessage } = useContext(GlobalContext)
     const { user } = useContext(UserContext)
@@ -101,7 +101,7 @@ export default function Clients() {
             })
         })
         const data = await res.json()
-        console.log(data)
+        // console.log(data)
         setClients(data.clients)
     };
 
@@ -153,7 +153,7 @@ export default function Clients() {
                             <div className="form-input mb-3">
                                 <label className="input-group input-group-vertical">
                                     <span>Phone</span>
-                                    <input type="text" placeholder="112-358-1321" name="phone" className="form-input input input-bordered" />
+                                    <input type="text" placeholder="4441110000" name="phone" className="form-input input input-bordered" />
                                 </label>
                             </div>
 
