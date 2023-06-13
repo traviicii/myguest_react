@@ -30,7 +30,6 @@ const UserContextProvider = ({ children }) => {
     return (
         <UserContext.Provider value={myValues}>
             { children }
-
         </UserContext.Provider>
     )
 };

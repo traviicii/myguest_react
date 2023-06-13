@@ -119,7 +119,7 @@ export default function SingleClient() {
             if (data.status === 'ok') {
                 // Show success msg
                 // console.log(data)
-                addMessage(data.message)
+                addMessage(data.message, "success")
             }
             else {
                 return console.log(data.message)

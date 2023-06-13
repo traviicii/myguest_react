@@ -240,7 +240,7 @@ export default function EditFormula() {
                     deleteObject(imageRef).then(() => { }).catch((error) => (console.log(`Error deleting image ${imageNames[i]}`)))
                 }
             }
-            addMessage(data.message)
+            addMessage(data.message, "success")
         }
         navigate(`/client/${client_id}/formulas`)
 

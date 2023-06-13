@@ -51,8 +51,8 @@ export default function LogIn() {
       const res = await fetch(url, options);
       const data = await res.json();
       if (data.status === 'ok') {
-        // Show success msg
-        console.log(data)
+        // Show success msg?
+        // console.log(data)
         setUser(data.data)
         localStorage.setItem('myGuest_user', JSON.stringify(data.data))
         navigate('/clients')

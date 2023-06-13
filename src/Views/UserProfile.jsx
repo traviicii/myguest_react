@@ -35,7 +35,7 @@ export default function UserProfile() {
     ];
 
     const csvReport = {
-        data: clients,
+        data: clients ? clients : '',
         headers: headers,
         filename: `myGuest_clients.csv`
       };
@@ -97,13 +97,16 @@ export default function UserProfile() {
             const data = await res.json()
             console.log(data)
             if (data.status == 'ok') {
+                
                 // // Create reference to the users folder on Firebase
                 // const userImagesRef = ref(getStorage(), `user/${user.id}`);
                 // // Delete the file
                 // deleteObject(userImagesRef).then(() => {
                 // // File deleted successfully
+                // console.log("sucessful Firebase Storage folder delete")
                 // }).catch((error) => {
                 //     // Uh-oh, an error occurred!
+                //     console.log("UNsucessful Firebase Storage folder delete")
                 // });
 
                 addMessage(data.message)
