@@ -143,7 +143,7 @@ export default function SignUp() {
                                 <label className="label">
                                     <span className="label-text text-base-100">Email</span>
                                 </label>
-                                <input type="text" required="required" placeholder="Email" name='email' className="input input-bordered" />
+                                <input type="email" required="required" placeholder="Email" name='email' className="input input-bordered" />
                             </div>
                             <div className="form-control">
                                 <label className="label">

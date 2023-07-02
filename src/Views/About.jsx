@@ -14,7 +14,7 @@ export default function About() {
               <div className='text-2xl'>Thank you for using the myGuest app!</div><br></br>
               <div>myGuest was built for hairstylists (by a hairstylist) to keep their own personal database of clientelle, seperate from whatever your salon's chosen booking software is, and ideal for freelance stylists as well!</div><br></br>
               <div>Track contact information, color analysis, past color history and appointment details like formulas and techniques used, including uploading photos!</div><br></br>
-              <div>This web application is developed and and maintained by one person (me!). If you've been enjoying using it or have any suggestions, features, or ideas you'd like to be implemented, or if you come accross any errors, please feel free to contact me <Link className='font-bold text-primary' to={"mailto:traviscpeck@gmail.com"}>here</Link>! Any feedback is greatly appreciated!</div>
+              <div>If you've been enjoying using this web app or have any suggestions, features, or ideas you'd like to be implemented, or if you come accross any errors, please feel free to contact me <Link className='font-bold text-primary' to={"mailto:traviscpeck@gmail.com"}>here</Link>! Any feedback is greatly appreciated!</div>
             </div>
               <br></br>
 
