@@ -31,7 +31,6 @@ export default function Home() {
 
     return (
         <div>
-
             <div className="hero min-h-screen" style={{ backgroundImage: `url(${randBackground()})` }}>
 
                 <div className="hero-content text-center text-neutral-content">
